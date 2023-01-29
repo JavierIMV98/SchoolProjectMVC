@@ -1,25 +1,25 @@
-@model IEnumerable<SchoolProjectMVC.Data.Student>
+@model IEnumerable<SchoolProjectMVC.Data.Enrollment>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Students</h1>
+<h1>Enrollments</h1>
 
 <p>
-    <a class="btn btn-success"asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                @Html.DisplayNameFor(model => model.Grade)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                @Html.DisplayNameFor(model => model.Class)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateOfBirth)
+                @Html.DisplayNameFor(model => model.Student)
             </th>
             <th></th>
         </tr>
@@ -28,26 +28,26 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
+                @Html.DisplayFor(modelItem => item.Grade)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LastName)
+                @Html.DisplayFor(modelItem => item.Class.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DateOfBirth)
+                @Html.DisplayFor(modelItem => item.Student.FirstName)
             </td>
             <td>
                 <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <button data-id="@item.Id" class="btn btn-danger deleteBtn" type="button">Delete</button>
-                </td>
-            </tr>
-        }
+                <button data-id="@item.Id" class="btn btn-danger deleteBtn" type="button">Delete</button>
+            </td>
+        </tr>
+}
     </tbody>
 </table>
 
-    <form asp-action="Delete" id="studentDeleteForm">
-        <input type="hidden" id="studentid" name="Id" />
+    <form asp-action="Delete" id="enrollmentDeleteForm">
+        <input type="hidden" id="enrollmentid" name="Id" />
     </form>
 
 @section Scripts{
@@ -65,10 +65,15 @@
                     confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                     if (result.isConfirmed) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        );
                         var btn=$(this);
                         var id = btn.data("id");
-                        $("#studentid").val(id);
-                        $("#studentDeleteForm").submit();
+                        $("#enrollmentid").val(id);
+                        $("#enrollmentDeleteForm").submit();
                     }
                 })
             })
