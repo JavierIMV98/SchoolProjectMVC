@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using SchoolProjectMVC.Data;
 
 namespace SchoolProjectMVC.Controllers
 {
+    [Authorize]
     public class EnrollmentController : Controller
     {
         private readonly SchoolManagementDbContext _context;
@@ -46,6 +48,7 @@ namespace SchoolProjectMVC.Controllers
         }
 
         // GET: Enrollment/Create
+        [Authorize]
         public IActionResult Create()
         {
             ViewData["ClassId"] = new SelectList(_context.Classes, "Id", "Id");
@@ -72,6 +75,7 @@ namespace SchoolProjectMVC.Controllers
         }
 
         // GET: Enrollment/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Enrollments == null)
@@ -127,6 +131,7 @@ namespace SchoolProjectMVC.Controllers
         }
 
         // GET: Enrollment/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Enrollments == null)
@@ -147,6 +152,7 @@ namespace SchoolProjectMVC.Controllers
         }
 
         // POST: Enrollment/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
